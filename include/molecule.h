@@ -1,12 +1,12 @@
 #ifndef MOLECULE_H
 #define MOLECULE_H
-
+#include <vector>
 
 class molecule
 {
     public:
 
-        molecule(vector loc, vector orient);
+        molecule(std::vector<double> loc, std::vector<double> orient);
 
         /** Default destructor
          the destructor will always delete the vectors */
@@ -14,9 +14,9 @@ class molecule
 
         virtual double potential();
 
-        vector m_location;
+        std::vector<double> m_location;
 
-        vector m_orientation;
+        std::vector<double> m_orientation;
 
 
     protected:

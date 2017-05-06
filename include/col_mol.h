@@ -8,7 +8,7 @@ class col_mol : public molecule
 {
     public:
 
-        col_mol(vector loc, vector orient): molecule(loc,orient);
+        col_mol(std::vector<double> loc, std::vector<double> orient): molecule(loc,orient){};
 
         virtual ~col_mol();
 

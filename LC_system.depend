@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1493762468 source:c:\users\priel\documents\codeblocks\lc_system\main.cpp
+	<iostream>
+
+1493766348 source:c:\users\priel\documents\codeblocks\lc_system\src\col_mol.cpp
+	"col_mol.h"
+
+1493766168 c:\users\priel\documents\codeblocks\lc_system\include\col_mol.h
+	<molecule.h>
+
+1493766086 c:\users\priel\documents\codeblocks\lc_system\include\molecule.h
+	<vector>
+
