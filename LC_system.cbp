@@ -35,7 +35,6 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/col_mol.h" />
-		<Unit filename="include/example.h" />
 		<Unit filename="include/lc_mol.h" />
 		<Unit filename="include/mol_sys.h" />
 		<Unit filename="include/molecule.h" />

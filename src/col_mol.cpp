@@ -1,6 +1,6 @@
 #include "col_mol.h"
 
-double potential()
+virtual double col_mol::potential()
 {
-    return 2;
+    return 2.0;
 }

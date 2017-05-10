@@ -5,9 +5,27 @@
 1493766348 source:c:\users\priel\documents\codeblocks\lc_system\src\col_mol.cpp
 	"col_mol.h"
 
-1493766168 c:\users\priel\documents\codeblocks\lc_system\include\col_mol.h
+1494231852 c:\users\priel\documents\codeblocks\lc_system\include\col_mol.h
 	<molecule.h>
 
-1493766086 c:\users\priel\documents\codeblocks\lc_system\include\molecule.h
+1494229615 c:\users\priel\documents\codeblocks\lc_system\include\molecule.h
 	<vector>
+
+1494231925 source:c:\users\priel\documents\codeblocks\lc_system\src\lc_mol.cpp
+	"lc_mol.h"
+
+1494231876 c:\users\priel\documents\codeblocks\lc_system\include\lc_mol.h
+	<molecule.h>
+
+1494191743 source:c:\users\priel\documents\codeblocks\lc_system\src\mol_sys.cpp
+	"mol_sys.h"
+	<time.h>
+	<cstdlib>
+	<random>
+
+1494192065 c:\users\priel\documents\codeblocks\lc_system\include\mol_sys.h
+	<molecule.h>
+
+1494235315 source:c:\users\priel\documents\codeblocks\lc_system\src\molecule.cpp
+	"molecule.h"
 

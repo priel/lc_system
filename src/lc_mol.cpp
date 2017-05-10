@@ -1,6 +1,6 @@
 #include "lc_mol.h"
 
-double potential()
+virtual double lc_mol::potential()
 {
     return 2;
 }

@@ -7,7 +7,7 @@
 class lc_mol : public molecule
 {
     public:
-        lc_mol(std::vector<double> loc, std::vector<double> orient) : molecule(loc,orient){};
+        lc_mol(std::vector<double> loc, std::vector<double> spin, double depth, double length): molecule(loc,spin,depth,length){};
 
         virtual ~lc_mol();
 

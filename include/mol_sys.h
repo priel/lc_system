@@ -14,7 +14,7 @@ class mol_sys
 
         /** this is some kind of custom constructor where all the parameters are pre-defined.**/
         mol_sys(double* sys_sizes, int dimensions, molecule *mols, int max_mol,
-                double *temp_range, int temp_size, int steps);
+                double std_loc, double std_spin, double *temp_range, int temp_size, int steps);
 
         /** the destructor will delete all the data here and all the molecules. */
         ~mol_sys();
@@ -23,11 +23,15 @@ class mol_sys
         int m_dimensions;
 
         molecule *m_molecules;
-        int m_max_molecule;
+        int m_molecules_size;
 
         double m_potential; // hold the current system total potential
 
         double **m_pair_potential; // have all the pairs of potential for example pair_potential[0][1] has the potential between molecule 0 and 1.
+
+        double m_gauss_std_loc; //hold the std to use in monte carlo for the location.
+        double m_gauss_std_spin; //hold the std to use in monte carlo for the spin.
+
 
         double *m_temp_range; //hold the range of temperature we want to check (Starting from 0 to max_temp -1;
         int m_temp_size;
@@ -42,7 +46,7 @@ class mol_sys
 
         void start_cooling();
 
-        void monte_carlo();
+        void monte_carlo(double std_loc, double std_spin);
 
     protected:
 
