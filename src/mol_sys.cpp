@@ -3,20 +3,20 @@
 #include <cstdlib>
 #include <random>
 
-mol_sys::mol_sys(double* sys_sizes, int dimensions, molecule *mols, int max_mol,
+Mol_Sys::Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
                  double std_loc, double std_spin, double *temp_range, int temp_size, int steps)
                  :m_size(sys_sizes), m_dimensions(dimensions), m_molecules(mols), m_molecules_size(max_mol),
                   m_gauss_std_loc(std_loc), m_gauss_std_spin(std_spin),
                   m_temp_range(temp_range), m_temp_size(temp_size), m_steps(steps) {}
 
 
-mol_sys::mol_sys()
+Mol_Sys::Mol_Sys()
 {
-    //
+    //ctor
 }
 
 
-mol_sys::~mol_sys()
+Mol_Sys::~Mol_Sys()
 {
     //dtor
     int i;
@@ -30,7 +30,7 @@ mol_sys::~mol_sys()
     delete[] m_pair_potential;
 }
 
-void mol_sys :: monte_carlo(double std_loc, double std_spin)
+void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
 {
     /** for each step:
         choose molecule randomly
@@ -42,7 +42,9 @@ void mol_sys :: monte_carlo(double std_loc, double std_spin)
     int i=0, j=0; //iterators for loop
     int num_mol_chosen; //
     double temp_delta, dE;
-    molecule mol_chosen;
+    Molecule mol_chosen;
+    double * potential;
+    double potential_size;
 
     //initiate the random generators:
     srand(time(0));
@@ -74,7 +76,8 @@ void mol_sys :: monte_carlo(double std_loc, double std_spin)
         // we now have the location vector and the spin vector suggested, now we have to calculate dE for them
         //since all changed is this 1 molecule we will:
         // calculate row of for the potential done by this molecule
-
+        potential = new double[m_molecules_size];
+        delete [] potential
 
     }
 }

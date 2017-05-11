@@ -1,6 +1,10 @@
 #include "col_mol.h"
 
-virtual double col_mol::potential()
+Col_Mol::Col_Mol():Molecule(){}
+
+Col_Mol::~Col_Mol(){}
+
+double Col_Mol::potential()
 {
     return 2.0;
 }

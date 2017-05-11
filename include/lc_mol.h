@@ -4,12 +4,14 @@
 #include <molecule.h>
 
 
-class lc_mol : public molecule
+class LC_Mol : public Molecule
 {
     public:
-        lc_mol(std::vector<double> loc, std::vector<double> spin, double depth, double length): molecule(loc,spin,depth,length){};
+        LC_Mol();
 
-        virtual ~lc_mol();
+        LC_Mol(std::vector<double> loc, std::vector<double> spin, double depth, double length): Molecule(loc,spin){};
+
+        virtual ~LC_Mol();
 
         virtual double potential();
 

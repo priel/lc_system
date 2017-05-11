@@ -2,26 +2,23 @@
 #define MOLECULE_H
 #include <vector>
 
-class molecule
+class Molecule
 {
     public:
 
-        molecule(std::vector<double> loc, std::vector<double> spin, double depth, double length );
+        Molecule();
+
+        Molecule(std::vector<double> loc, std::vector<double> spin);
+
 
         /** Default destructor
          the destructor will always delete the vectors */
-        virtual ~molecule();
+        virtual ~Molecule();
 
-        virtual double potential(molecule mol);
-
-        /** overloading assignment operator */
-        //molecule & operator= (const molecule & other);
+        virtual double potential(Molecule mol);
 
         std::vector<double> m_location;
         std::vector<double> m_spin;
-
-        double m_d;
-        double m_l;
 
 
     protected:

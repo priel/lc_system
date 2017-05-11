@@ -4,13 +4,15 @@
 #include <molecule.h>
 
 
-class col_mol : public molecule
+class Col_Mol : public Molecule
 {
     public:
 
-        col_mol(std::vector<double> loc, std::vector<double> spin, double depth, double length): molecule(loc,spin,depth,length){};
+        Col_Mol(std::vector<double> loc, std::vector<double> spin, double depth, double length): Molecule(loc,spin){};
 
-        virtual ~col_mol();
+        Col_Mol();
+
+        virtual ~Col_Mol();
 
         virtual double potential();
 

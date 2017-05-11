@@ -3,26 +3,26 @@
 
 #include <molecule.h>
 
-class mol_sys
+class Mol_Sys
 {
     public:
 
         /** the default constructor will do everything by itself.
         will create a Gaussian distribution where the STD and expected is given. **/
 
-        mol_sys();
+        Mol_Sys();
 
         /** this is some kind of custom constructor where all the parameters are pre-defined.**/
-        mol_sys(double* sys_sizes, int dimensions, molecule *mols, int max_mol,
+        Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
                 double std_loc, double std_spin, double *temp_range, int temp_size, int steps);
 
         /** the destructor will delete all the data here and all the molecules. */
-        ~mol_sys();
+        ~Mol_Sys();
 
         double* m_size; //array in the length of dimensions which determine the x,y,(z) of the system.
         int m_dimensions;
 
-        molecule *m_molecules;
+        Molecule *m_molecules;
         int m_molecules_size;
 
         double m_potential; // hold the current system total potential
