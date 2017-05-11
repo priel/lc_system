@@ -1,5 +1,5 @@
 #include "molecule.h"
-
+//
 molecule::molecule(std::vector<double> loc, std::vector<double> spin, double depth, double length)
                     : m_location(loc), m_spin(spin), m_d(depth), m_l(length){}
 
