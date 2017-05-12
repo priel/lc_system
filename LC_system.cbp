@@ -34,6 +34,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Model.h" />
 		<Unit filename="include/Col_Mol.h" />
 		<Unit filename="include/LC_Mol.h" />
 		<Unit filename="include/Mol_Sys.h" />
