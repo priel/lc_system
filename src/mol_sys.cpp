@@ -5,7 +5,7 @@
 
 Mol_Sys::Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
                  double std_loc, double std_spin, double *temp_range, int temp_size, int steps)
-                 :m_size(sys_sizes), m_dimensions(dimensions), m_molecules(mols), m_molecules_size(max_mol),
+                 :m_sys_sizes(sys_sizes), m_dimensions(dimensions), m_molecules(mols), m_molecules_size(max_mol),
                   m_gauss_std_loc(std_loc), m_gauss_std_spin(std_spin),
                   m_temp_range(temp_range), m_temp_size(temp_size), m_steps(steps) {}
 
@@ -20,7 +20,7 @@ Mol_Sys::~Mol_Sys()
 {
     //dtor
     int i;
-    delete[] m_size;
+    delete[] m_sys_sizes;
     delete[] m_molecules;
     delete[] m_temp_range;
     for (i=0;i<m_molecules_size;i++)
@@ -28,6 +28,11 @@ Mol_Sys::~Mol_Sys()
         delete[] m_pair_potential[i];
     }
     delete[] m_pair_potential;
+}
+
+void update_sys(Molecule mol_chosen, int index, double* potential, double temp_total_pot)
+{
+    // need to implement
 }
 
 void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
@@ -39,14 +44,15 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
         if dE<0 take the stpe
         if not take the step with probability of e^-dE/Kb*T */
 
-    int i=0, j=0; //iterators for loop
+    int i = 0, j = 0; ///iterators for loop
     int num_mol_chosen; //
-    double temp_delta, dE;
+    double dE;
     Molecule mol_chosen;
     double * potential;
     double potential_size;
+    double temp_total_pot = 0;
 
-    //initiate the random generators:
+    ///initiate the random generators:
     srand(time(0));
     std::default_random_engine loc_gen(time(0));
     std::normal_distribution<double> loc_dist(0.0,std_loc);
@@ -56,28 +62,41 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
 
     for (i=0;i<m_steps;i++)
     {
-        //choose molecule:
+        ///choose molecule:
         num_mol_chosen = rand() % m_molecules_size;
 
-        //change location around gauss dist:
+        ///change location around gauss dist:
         mol_chosen = m_molecules[num_mol_chosen];
         for (j=0; j<mol_chosen.m_location.size(); j++)
         {
-            //it's actually multivariate normal distribution where E=loc, std=std given, and no correlation between the axis.
+            ///it's actually multivariate normal distribution where E=loc, std=std given, and no correlation between the axis.
             mol_chosen.m_location[j] += loc_dist(loc_gen);
         }
 
         for (j=0; j<mol_chosen.m_spin.size(); j++)
         {
-            //it's actually multivariate normal distribution where E=loc, std=std given, and no correlation between the axis.
+            ///it's actually multivariate normal distribution where E=loc, std=std given, and no correlation between the axis.
             mol_chosen.m_spin[j] += spin_dist(spin_gen);
         }
 
-        // we now have the location vector and the spin vector suggested, now we have to calculate dE for them
-        //since all changed is this 1 molecule we will:
-        // calculate row of for the potential done by this molecule
+        /// we now have the location vector and the spin vector suggested, now we have to calculate dE for them
+        ///since all changed is this 1 molecule we will:
+        /// calculate row of for the potential done by this molecule
         potential = new double[m_molecules_size];
-        delete [] potential
+        for (j=0, j<m_molecules_size;j++)
+        {
+            if (j==num_mol_chosen) continue;
+            potential[j] = mol_chosen.potential(m_molecules[j]);
+            temp_total_pot += potential[j];
+        }
+        if (temp_total_pot <= m_pair_potential) {
+
+        } else {
+            if () {
+                update_sys(mol_chosen, potential, temp_total_pot);
+            }
+        }
+        delete [] potential;
 
     }
 }
