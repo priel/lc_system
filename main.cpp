@@ -12,4 +12,3 @@ int main(int argc, char* argv[])
     std::cout << argv[0] << "says hello, " << argv[1] << "!" << std::endl;
     return 0;
 }
-b

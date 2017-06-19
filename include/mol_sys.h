@@ -2,6 +2,7 @@
 #define MOL_SYS_H
 
 #include <molecule.h>
+#define k_B 1.38066e-23
 
 class Mol_Sys
 {
@@ -29,7 +30,7 @@ class Mol_Sys
 
         double **m_pair_potential; /// have all the pairs of potential for example pair_potential[0][1] has the potential between molecule 0 and 1.
                                    ///the last column has the sum potential of this
-        /** example of potentials as a matrix:
+        /** example of potentials as a matrix for m_molecules_size=4:
             0   1   2   3
         0  N/A 2.0 1.0 2.1
         1  N/A N/A 2.1 1.2
@@ -57,7 +58,7 @@ class Mol_Sys
 
         void monte_carlo(double std_loc, double std_spin);
 
-        void update_sys(Molecule mol_chosen, int index, double* potential, double temp_total_pot);
+        void update_sys(Molecule mol_chosen, int index, double* potential, double total_pot);
 
     protected:
 

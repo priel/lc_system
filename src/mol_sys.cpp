@@ -2,6 +2,7 @@
 #include <time.h>
 #include <cstdlib>
 #include <random>
+#include <math.h>
 
 Mol_Sys::Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
                  double std_loc, double std_spin, double *temp_range, int temp_size, int steps)
@@ -30,9 +31,10 @@ Mol_Sys::~Mol_Sys()
     delete[] m_pair_potential;
 }
 
-void update_sys(Molecule mol_chosen, int index, double* potential, double temp_total_pot)
+void Mol_Sys :: update_sys(Molecule mol_chosen, int index, double* potential, double temp_total_pot)
 {
-    // need to implement
+    m_molecules[index] = mol_chosen;
+
 }
 
 void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
@@ -41,11 +43,12 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
         choose molecule randomly
         change location and spin with gauss distribution
         calculate dE
-        if dE<0 take the stpe
+        if dE<0 take the step
         if not take the step with probability of e^-dE/Kb*T */
 
     int i = 0, j = 0; ///iterators for loop
     int num_mol_chosen; //
+    double prob;
     double dE;
     Molecule mol_chosen;
     double * potential;
@@ -59,6 +62,10 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
 
     std::default_random_engine spin_gen(time(0));
     std::normal_distribution<double> spin_dist(0.0,std_spin);
+
+    /*std::random_device;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_real_distribution<> dis(0, 1); */
 
     for (i=0;i<m_steps;i++)
     {
@@ -89,14 +96,21 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
             potential[j] = mol_chosen.potential(m_molecules[j]);
             temp_total_pot += potential[j];
         }
-        if (temp_total_pot <= m_pair_potential) {
-
-        } else {
-            if () {
-                update_sys(mol_chosen, potential, temp_total_pot);
+        if (temp_total_pot <= m_pair_potential[m_molecules_size-1][num_mol_chosen])
+        {
+            update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot);
+        }
+        else
+        {
+            prob = ((double) rand() / (RAND_MAX))
+            dE = m_pair_potential[m_molecules_size-1][num_mol_chosen] - temp_total_pot;
+            if ( prob < exp(dE/(m_temp_range[m_current_index_temp] * k_B)) //check it's correct
+            {
+                update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot);
             }
         }
         delete [] potential;
+        //no need to delete mol_chosen since it wan't created by new it limited to this scope.
 
     }
 }
