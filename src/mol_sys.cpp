@@ -31,10 +31,38 @@ Mol_Sys::~Mol_Sys()
     delete[] m_pair_potential;
 }
 
+void Mol_Sys :: init()
+{
+
+}
+
 void Mol_Sys :: update_sys(Molecule mol_chosen, int index, double* potential, double temp_total_pot)
 {
+    ///inputs:
+    /// Molecule mol_chosen: molecule to update.
+    /// int index: the index of the molecule to update.
+    /// double* potential: an array of all the new pair potential (size of m_molecules_size)
+    ///         potential[index] is undefined and should not use!!
+    /// double temp_total_pot: the total potential caused by this molecule to the system (sum of potential).
+    ///
+    /// the function update the system with the new vars.
+
+
+    ///update the molecule
     m_molecules[index] = mol_chosen;
 
+    ///update the pair potential:
+
+    ///update the column:
+    for (int i = 0; i < index; i++)
+        m_pair_potential[i][index] = potential[i];
+
+    ///update the rows:
+    for (int i = index+1; i < m_molecules_size; i++)
+        m_pair_potential[index][i]
+
+    ///update the total potential:
+    m_pair_potential[m_molecules_size-1][index] = temp_total_pot;
 }
 
 void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
@@ -67,20 +95,20 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_real_distribution<> dis(0, 1); */
 
-    for (i=0;i<m_steps;i++)
+    for (i = 0; i < m_steps; i++)
     {
         ///choose molecule:
         num_mol_chosen = rand() % m_molecules_size;
 
         ///change location around gauss dist:
         mol_chosen = m_molecules[num_mol_chosen];
-        for (j=0; j<mol_chosen.m_location.size(); j++)
+        for (j = 0; j < mol_chosen.m_location.size(); j++)
         {
             ///it's actually multivariate normal distribution where E=loc, std=std given, and no correlation between the axis.
             mol_chosen.m_location[j] += loc_dist(loc_gen);
         }
 
-        for (j=0; j<mol_chosen.m_spin.size(); j++)
+        for (j = 0; j< mol_chosen.m_spin.size(); j++)
         {
             ///it's actually multivariate normal distribution where E=loc, std=std given, and no correlation between the axis.
             mol_chosen.m_spin[j] += spin_dist(spin_gen);
@@ -90,7 +118,7 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
         ///since all changed is this 1 molecule we will:
         /// calculate row of for the potential done by this molecule
         potential = new double[m_molecules_size];
-        for (j=0, j<m_molecules_size;j++)
+        for ( j = 0; j < m_molecules_size; j++)
         {
             if (j==num_mol_chosen) continue;
             potential[j] = mol_chosen.potential(m_molecules[j]);
@@ -104,14 +132,13 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
         {
             prob = ((double) rand() / (RAND_MAX))
             dE = m_pair_potential[m_molecules_size-1][num_mol_chosen] - temp_total_pot;
-            if ( prob < exp(dE/(m_temp_range[m_current_index_temp] * k_B)) //check it's correct
+            if ( prob < exp(dE/(m_temp_range[m_current_index_temp] * k_B))
             {
                 update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot);
             }
         }
         delete [] potential;
         //no need to delete mol_chosen since it wan't created by new it limited to this scope.
-
     }
 }
 

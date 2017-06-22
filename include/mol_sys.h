@@ -52,13 +52,19 @@ class Mol_Sys
 
 
         /** the public functions: */
+
         void init();
+        ///calculate the potential for the whole system.
 
         void start_cooling();
+        /// in future will use some module how to cool the system.
+        /// currently will just perform x monte carlos for each temperature from the array.
 
         void monte_carlo(double std_loc, double std_spin);
+        ///doing one monte carlo step
 
         void update_sys(Molecule mol_chosen, int index, double* potential, double total_pot);
+        /// in charge of updating the system.
 
     protected:
 
