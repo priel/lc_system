@@ -20,11 +20,14 @@ Mol_Sys::Mol_Sys()
 Mol_Sys::~Mol_Sys()
 {
     //dtor
-    int i;
     delete[] m_sys_sizes;
+    for (int i = 0; i < m_molecules_size; i++)
+    {
+        delete m_molecules[i];
+    }
     delete[] m_molecules;
     delete[] m_temp_range;
-    for (i=0;i<m_molecules_size;i++)
+    for (int i = 0; i < m_molecules_size; i++)
     {
         delete[] m_pair_potential[i];
     }
@@ -33,17 +36,26 @@ Mol_Sys::~Mol_Sys()
 
 void Mol_Sys :: init()
 {
-
+    ///inputs: none
+    /// the function update all the pair_potential and the total potential
+    for (int i = 0; i < m_molecules_size; i++)
+    {
+        for (int j = i; j < )
+    }
 }
 
-void Mol_Sys :: update_sys(Molecule mol_chosen, int index, double* potential, double temp_total_pot)
+double Mol_Sys :: get_all_pair_potential(int index)
+{
+    //need implementation
+}
+
+void Mol_Sys :: update_sys(Molecule mol_chosen, int index, double* potential)
 {
     ///inputs:
     /// Molecule mol_chosen: molecule to update.
     /// int index: the index of the molecule to update.
     /// double* potential: an array of all the new pair potential (size of m_molecules_size)
     ///         potential[index] is undefined and should not use!!
-    /// double temp_total_pot: the total potential caused by this molecule to the system (sum of potential).
     ///
     /// the function update the system with the new vars.
 
@@ -61,8 +73,13 @@ void Mol_Sys :: update_sys(Molecule mol_chosen, int index, double* potential, do
     for (int i = index+1; i < m_molecules_size; i++)
         m_pair_potential[index][i]
 
-    ///update the total potential:
-    m_pair_potential[m_molecules_size-1][index] = temp_total_pot;
+    /*///update the total potential of the system:
+    m_potential -= m_pair_potential[m_molecules_size-1];
+    m_potential += temp_total_pot;*/
+
+
+
+
 }
 
 void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
@@ -131,7 +148,7 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
         else
         {
             prob = ((double) rand() / (RAND_MAX))
-            dE = m_pair_potential[m_molecules_size-1][num_mol_chosen] - temp_total_pot;
+            dE = get_all_pair_potential(num_mol_chosen) - temp_total_pot;
             if ( prob < exp(dE/(m_temp_range[m_current_index_temp] * k_B))
             {
                 update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot);

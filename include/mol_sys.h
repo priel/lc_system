@@ -35,8 +35,9 @@ class Mol_Sys
         0  N/A 2.0 1.0 2.1
         1  N/A N/A 2.1 1.2
         2  N/A N/A N/A 1.0
-        3  5.1 5.3 4.1 4.3  //this hold the sum of all potentials of regarding (summing this will have 2*total molecule size)
+        3  N/A N/A N/A N/A   //this is not really needed and just here for simplicity.
         */
+
         /// We could have saved more memory by defining only the triangle, however it left that way for simplicity of the code.
 
         double m_gauss_std_loc; ///hold the std to use in monte carlo for the location.
@@ -53,6 +54,9 @@ class Mol_Sys
 
         /** the public functions: */
 
+        /// update the system potential based on the pair potential
+        void update_sys_potential();
+
         void init();
         ///calculate the potential for the whole system.
 
@@ -60,11 +64,16 @@ class Mol_Sys
         /// in future will use some module how to cool the system.
         /// currently will just perform x monte carlos for each temperature from the array.
 
-        void monte_carlo(double std_loc, double std_spin);
-        ///doing one monte carlo step
+        ///get the potential of all the pairs with the index
+        double get_all_pair_potential(int index);
 
-        void update_sys(Molecule mol_chosen, int index, double* potential, double total_pot);
+        void update_sys(Molecule mol_chosen, int index, double* potential);
         /// in charge of updating the system.
+
+
+        void monte_carlo(double std_loc, double std_spin);
+        ///doing m_step times monte carlo steps
+
 
     protected:
 
