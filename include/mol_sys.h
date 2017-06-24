@@ -65,13 +65,13 @@ class Mol_Sys
         /// currently will just perform x monte carlos for each temperature from the array.
 
         ///get the potential of all the pairs with the index
-        double get_all_pair_potential(int index);
+        double get_all_pair_potential_of_index(int index);
 
-        void update_sys(Molecule mol_chosen, int index, double* potential);
+        void update_sys(Molecule mol_chosen, int index, double* potential, double tot_pot_update);
         /// in charge of updating the system.
 
 
-        void monte_carlo(double std_loc, double std_spin);
+        void monte_carlo();
         ///doing m_step times monte carlo steps
 
 

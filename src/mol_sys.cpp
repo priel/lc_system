@@ -34,22 +34,58 @@ Mol_Sys::~Mol_Sys()
     delete[] m_pair_potential;
 }
 
+void Mol_Sys :: update_sys_potential()
+{
+    ///update the system potential based on the pair potential of all the molecules.
+
+    /// this function is less performance sensitive so we dont mind doing things twice:
+    double potential = 0.0;
+    for (int i = 0; i < m_molecules_size; i++)
+    {
+        potential += get_all_pair_potential_of_index(i)
+    }
+    m_potential = potential;
+}
+
 void Mol_Sys :: init()
 {
     ///inputs: none
     /// the function update all the pair_potential and the total potential
     for (int i = 0; i < m_molecules_size; i++)
     {
-        for (int j = i; j < )
+        for (int j = i+1; j < m_molecules_size; j++)
+        {
+            m_pair_potential[i][j] = m_molecules[i].potential(m_molecules[j]);
+        }
     }
+    update_sys_potential();
 }
 
-double Mol_Sys :: get_all_pair_potential(int index)
+void Mol_Sys :: start_cooling()
 {
-    //need implementation
+        /// in future will use some module how to cool the system.
+        /// currently will just perform x monte carlos for each temperature from the array.
+        for (m_current_index_temp = 0; m_current_index_temp < m_temp_size; m_current_index_temp++)
+        {
+            monte_carlo();
+        }
 }
 
-void Mol_Sys :: update_sys(Molecule mol_chosen, int index, double* potential)
+double Mol_Sys :: get_all_pair_potential_of_index(int index)
+{
+    ///get the column potential:
+    double potential = 0.0;
+    for (int i = 0; i < index; i++)
+        potential += m_pair_potential[i][index];
+
+    ///get the row potential:
+    for (int i = index+1; i < m_molecules_size; i++)
+        potential += m_pair_potential[index][i];
+
+    return potential;
+}
+
+void Mol_Sys :: update_sys(Molecule mol_chosen, int index, double* potential, double tot_pot_update)
 {
     ///inputs:
     /// Molecule mol_chosen: molecule to update.
@@ -71,18 +107,16 @@ void Mol_Sys :: update_sys(Molecule mol_chosen, int index, double* potential)
 
     ///update the rows:
     for (int i = index+1; i < m_molecules_size; i++)
-        m_pair_potential[index][i]
+        m_pair_potential[index][i] = potential[i];
 
-    /*///update the total potential of the system:
-    m_potential -= m_pair_potential[m_molecules_size-1];
-    m_potential += temp_total_pot;*/
+    m_potential += tot_pot_update;
 
 
 
 
 }
 
-void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
+void Mol_Sys :: monte_carlo()
 {
     /** for each step:
         choose molecule randomly
@@ -97,16 +131,16 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
     double dE;
     Molecule mol_chosen;
     double * potential;
-    double potential_size;
+    double current_total_pot;
     double temp_total_pot = 0;
 
     ///initiate the random generators:
     srand(time(0));
     std::default_random_engine loc_gen(time(0));
-    std::normal_distribution<double> loc_dist(0.0,std_loc);
+    std::normal_distribution<double> loc_dist(0.0,m_gauss_std_loc);
 
     std::default_random_engine spin_gen(time(0));
-    std::normal_distribution<double> spin_dist(0.0,std_spin);
+    std::normal_distribution<double> spin_dist(0.0,m_gauss_std_spin);
 
     /*std::random_device;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -137,21 +171,22 @@ void Mol_Sys :: monte_carlo(double std_loc, double std_spin)
         potential = new double[m_molecules_size];
         for ( j = 0; j < m_molecules_size; j++)
         {
-            if (j==num_mol_chosen) continue;
+            if (j == num_mol_chosen) continue;
             potential[j] = mol_chosen.potential(m_molecules[j]);
             temp_total_pot += potential[j];
         }
-        if (temp_total_pot <= m_pair_potential[m_molecules_size-1][num_mol_chosen])
+        current_total_pot = get_all_pair_potential_of_index(num_mol_chosen);
+        if (temp_total_pot <= current_total_pot)
         {
-            update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot);
+            update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot - current_total_pot);
         }
         else
         {
             prob = ((double) rand() / (RAND_MAX))
-            dE = get_all_pair_potential(num_mol_chosen) - temp_total_pot;
+            dE = get_all_pair_potential_of_index(num_mol_chosen) - temp_total_pot;
             if ( prob < exp(dE/(m_temp_range[m_current_index_temp] * k_B))
             {
-                update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot);
+                update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot - current_total_pot);
             }
         }
         delete [] potential;
