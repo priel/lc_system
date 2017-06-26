@@ -1,4 +1,6 @@
 #include <iostream>
+#include <mol_sys.h>
+#include <molecule.h>
 #define DEBUG 1
 using namespace std;
 
@@ -24,14 +26,25 @@ int main(int argc, char* argv[])
         double std_loc = 1, std_spin = 1;
         double temp_range [5] = {10, 8, 6, 4, 3};
         double size_sys [2] = {5,5};
-        Molecule mols [9] = new Molecule[];
+        Molecule **mols = new Molecule*[9];
+        std::vector <double> loc(dimensions);
+        std::vector <double> spin(dimensions);
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
-                mols[0] = new Molecule()
+                loc[0] = i;
+                loc[1] = j;
+                mols[3*i + j] = new Molecule(loc,spin);
             }
         }
 
+        Mol_Sys * lc_system = new Mol_Sys(sys_size,dimensions,mols,max_mol,std_loc,std_spin,temp_range,temp_size,steps);
+        lc_system->init();
+        lc_system->start_cooling();
+        delete lc_system;
+
     #endif // DEBUG
 }
+/// optimization suggestions:
+/// use array instead of vectors in the molecules.

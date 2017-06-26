@@ -4,7 +4,7 @@
 #include <random>
 #include <math.h>
 
-Mol_Sys::Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
+Mol_Sys::Mol_Sys(double* sys_sizes, int dimensions, Molecule **mols, int max_mol,
                  double std_loc, double std_spin, double *temp_range, int temp_size, int steps)
                  :m_sys_sizes(sys_sizes), m_dimensions(dimensions), m_molecules(mols), m_molecules_size(max_mol),
                   m_gauss_std_loc(std_loc), m_gauss_std_spin(std_spin),
@@ -42,7 +42,7 @@ void Mol_Sys :: update_sys_potential()
     double potential = 0.0;
     for (int i = 0; i < m_molecules_size; i++)
     {
-        potential += get_all_pair_potential_of_index(i)
+        potential += get_all_pair_potential_of_index(i);
     }
     m_potential = potential;
 }
@@ -55,7 +55,7 @@ void Mol_Sys :: init()
     {
         for (int j = i+1; j < m_molecules_size; j++)
         {
-            m_pair_potential[i][j] = m_molecules[i].potential(m_molecules[j]);
+            m_pair_potential[i][j] = m_molecules[i]->potential(*m_molecules[j]);
         }
     }
     update_sys_potential();
@@ -63,12 +63,13 @@ void Mol_Sys :: init()
 
 void Mol_Sys :: start_cooling()
 {
-        /// in future will use some module how to cool the system.
-        /// currently will just perform x monte carlos for each temperature from the array.
-        for (m_current_index_temp = 0; m_current_index_temp < m_temp_size; m_current_index_temp++)
-        {
-            monte_carlo();
-        }
+    init();
+    /// in future will use some module how to cool the system.
+    /// currently will just perform x monte carlos for each temperature from the array.
+    for (m_current_index_temp = 0; m_current_index_temp < m_temp_size; m_current_index_temp++)
+    {
+        monte_carlo();
+    }
 }
 
 double Mol_Sys :: get_all_pair_potential_of_index(int index)
@@ -97,7 +98,7 @@ void Mol_Sys :: update_sys(Molecule mol_chosen, int index, double* potential, do
 
 
     ///update the molecule
-    m_molecules[index] = mol_chosen;
+    *m_molecules[index] = mol_chosen;
 
     ///update the pair potential:
 
@@ -152,7 +153,7 @@ void Mol_Sys :: monte_carlo()
         num_mol_chosen = rand() % m_molecules_size;
 
         ///change location around gauss dist:
-        mol_chosen = m_molecules[num_mol_chosen];
+        mol_chosen = *m_molecules[num_mol_chosen];
         for (j = 0; j < mol_chosen.m_location.size(); j++)
         {
             ///it's actually multivariate normal distribution where E=loc, std=std given, and no correlation between the axis.
@@ -172,7 +173,7 @@ void Mol_Sys :: monte_carlo()
         for ( j = 0; j < m_molecules_size; j++)
         {
             if (j == num_mol_chosen) continue;
-            potential[j] = mol_chosen.potential(m_molecules[j]);
+            potential[j] = mol_chosen.potential(*m_molecules[j]);
             temp_total_pot += potential[j];
         }
         current_total_pot = get_all_pair_potential_of_index(num_mol_chosen);
@@ -182,9 +183,9 @@ void Mol_Sys :: monte_carlo()
         }
         else
         {
-            prob = ((double) rand() / (RAND_MAX))
+            prob = ((double) rand() / (RAND_MAX));
             dE = get_all_pair_potential_of_index(num_mol_chosen) - temp_total_pot;
-            if ( prob < exp(dE/(m_temp_range[m_current_index_temp] * k_B))
+            if ( prob < exp(dE/(m_temp_range[m_current_index_temp] * k_B)))
             {
                 update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot - current_total_pot);
             }

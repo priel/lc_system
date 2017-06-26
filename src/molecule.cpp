@@ -7,7 +7,7 @@ Molecule::Molecule(){}
 
 Molecule::~Molecule(){}
 
-double Molecule::potential(Molecule mol)
+double Molecule::potential(const Molecule & mol)
 {
     return 2.0;
 }

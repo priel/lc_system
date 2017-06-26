@@ -1,6 +1,8 @@
 # depslib dependency file v1.0
-1494629194 source:c:\users\priel\documents\codeblocks\lc_system\main.cpp
+1498505787 source:c:\users\priel\documents\codeblocks\lc_system\main.cpp
 	<iostream>
+	<mol_sys.h>
+	<molecule.h>
 
 1494629194 source:c:\users\priel\documents\codeblocks\lc_system\src\col_mol.cpp
 	"col_mol.h"
@@ -8,7 +10,7 @@
 1494629193 c:\users\priel\documents\codeblocks\lc_system\include\col_mol.h
 	<molecule.h>
 
-1494629194 c:\users\priel\documents\codeblocks\lc_system\include\molecule.h
+1498505928 c:\users\priel\documents\codeblocks\lc_system\include\molecule.h
 	<vector>
 
 1494629194 source:c:\users\priel\documents\codeblocks\lc_system\src\lc_mol.cpp
@@ -17,16 +19,17 @@
 1494629193 c:\users\priel\documents\codeblocks\lc_system\include\lc_mol.h
 	<molecule.h>
 
-1494629194 source:c:\users\priel\documents\codeblocks\lc_system\src\mol_sys.cpp
+1498507448 source:c:\users\priel\documents\codeblocks\lc_system\src\mol_sys.cpp
 	"mol_sys.h"
 	<time.h>
 	<cstdlib>
 	<random>
+	<math.h>
 
-1494629193 c:\users\priel\documents\codeblocks\lc_system\include\mol_sys.h
+1498505779 c:\users\priel\documents\codeblocks\lc_system\include\mol_sys.h
 	<molecule.h>
 
-1494629194 source:c:\users\priel\documents\codeblocks\lc_system\src\molecule.cpp
+1498505928 source:c:\users\priel\documents\codeblocks\lc_system\src\molecule.cpp
 	"molecule.h"
 
 1494525735 source:c:\users\paharoni\phys_proj_lc\lc_system\main.cpp

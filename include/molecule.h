@@ -15,7 +15,8 @@ class Molecule
          the destructor will always delete the vectors */
         virtual ~Molecule();
 
-        virtual double potential(Molecule mol);
+        virtual double potential(const Molecule & mol);
+
 
         std::vector<double> m_location;
         std::vector<double> m_spin;
