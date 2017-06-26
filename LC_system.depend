@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1498505787 source:c:\users\priel\documents\codeblocks\lc_system\main.cpp
+1498510594 source:c:\users\priel\documents\codeblocks\lc_system\main.cpp
 	<iostream>
 	<mol_sys.h>
 	<molecule.h>
@@ -26,7 +26,7 @@
 	<random>
 	<math.h>
 
-1498505779 c:\users\priel\documents\codeblocks\lc_system\include\mol_sys.h
+1498510859 c:\users\priel\documents\codeblocks\lc_system\include\mol_sys.h
 	<molecule.h>
 
 1498505928 source:c:\users\priel\documents\codeblocks\lc_system\src\molecule.cpp

@@ -21,12 +21,24 @@ int main(int argc, char* argv[])
         /* Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
                 double std_loc, double std_spin, double *temp_range, int temp_size, int steps); */
 
-        double* sys_size;
         int dimensions = 2, max_mol = 9, temp_size = 5, steps = 10;
         double std_loc = 1, std_spin = 1;
-        double temp_range [5] = {10, 8, 6, 4, 3};
-        double size_sys [2] = {5,5};
-        Molecule **mols = new Molecule*[9];
+
+        double* sys_size = new double [dimensions];
+        double* temp_range = new double [temp_size];
+
+        sys_size[0] = 5;
+        sys_size[1] = 5;
+
+        temp_range[0] = 10;
+        temp_range[1] = 8;
+        temp_range[2] = 7;
+        temp_range[3] = 5;
+        temp_range[4] = 2;
+
+        // allocate max_mol molecules and call default constructor on all of them.
+        Molecule *mols = new Molecule[max_mol];
+
         std::vector <double> loc(dimensions);
         std::vector <double> spin(dimensions);
         for (int i = 0; i < 3; i++)
@@ -35,7 +47,9 @@ int main(int argc, char* argv[])
             {
                 loc[0] = i;
                 loc[1] = j;
-                mols[3*i + j] = new Molecule(loc,spin);
+                //spin is initialized to zero.
+                mols[3*i + j].m_location=loc;
+                mols[3*i + j].m_spin=spin;
             }
         }
 

@@ -14,7 +14,7 @@ class Mol_Sys
         Mol_Sys();
 
         /** this is some kind of custom constructor where all the parameters are pre-defined.**/
-        Mol_Sys(double* sys_sizes, int dimensions, Molecule **mols, int max_mol,
+        Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
                 double std_loc, double std_spin, double *temp_range, int temp_size, int steps);
 
         /** the destructor will delete all the data here and all the molecules. */
@@ -23,7 +23,7 @@ class Mol_Sys
         double* m_sys_sizes; ///array in the length of dimensions which determine the x,y,(z) of the system.
         int m_dimensions;
 
-        Molecule **m_molecules;
+        Molecule *m_molecules; ///pointer to the first molecule array.
         int m_molecules_size;
 
         double m_potential; /// hold the current system total potential
