@@ -34,16 +34,16 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/Model.h" />
-		<Unit filename="include/Col_Mol.h" />
-		<Unit filename="include/LC_Mol.h" />
-		<Unit filename="include/Mol_Sys.h" />
-		<Unit filename="include/Molecule.h" />
+		<Unit filename="include/col_mol.h" />
+		<Unit filename="include/lc_mol.h" />
+		<Unit filename="include/model.h" />
+		<Unit filename="include/mol_sys.h" />
+		<Unit filename="include/molecule.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/Col_Mol.cpp" />
-		<Unit filename="src/LC_Mol.cpp" />
-		<Unit filename="src/Mol_Sys.cpp" />
-		<Unit filename="src/Molecule.cpp" />
+		<Unit filename="src/col_mol.cpp" />
+		<Unit filename="src/lc_mol.cpp" />
+		<Unit filename="src/mol_sys.cpp" />
+		<Unit filename="src/molecule.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

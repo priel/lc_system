@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <random>
 #include <math.h>
+#include <stdio.h>
+#include <defined.h>
 
 Mol_Sys::Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
                  double std_loc, double std_spin, double *temp_range, int temp_size, int steps)
@@ -18,6 +20,9 @@ Mol_Sys::Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
                       {
                           m_pair_potential[i] = new double [m_molecules_size];
                       }
+                      #if PRINT_DEBUG_INFO >= 1
+                        printf("creating mol_sys\n");
+                      #endif // PRINT_DEBUG_INFO
                   }
 
 
@@ -31,6 +36,9 @@ Mol_Sys::Mol_Sys()
 Mol_Sys::~Mol_Sys()
 {
     //dtor
+    #if PRINT_DEBUG_INFO >= 1
+        printf("deleting mol_sys\n");
+    #endif // PRINT_DEBUG_INFO
     delete[] m_sys_sizes;
 /*    for (int i = 0; i < m_molecules_size; i++)
     {
@@ -55,7 +63,11 @@ void Mol_Sys :: update_sys_potential()
     {
         potential += get_all_pair_potential_of_index(i);
     }
-    m_potential = potential;
+    ///since we calculated the pair potential i,j for each pair twice, once for i and once for j we need to divide by two
+    m_potential = potential/2;
+    #if PRINT_DEBUG_INFO >= 1
+        printf("updating system potential: pot = %f\n", m_potential);
+    #endif // PRINT_DEBUG_INFO
 }
 
 void Mol_Sys :: init()
@@ -64,9 +76,16 @@ void Mol_Sys :: init()
     /// the function update all the pair_potential and the total potential
     for (int i = 0; i < m_molecules_size; i++)
     {
+        #if PRINT_DEBUG_INFO >= 1
+            printf("initialize the potential:\n");
+        #endif // PRINT_DEBUG_INFO
+
         for (int j = i+1; j < m_molecules_size; j++)
         {
             m_pair_potential[i][j] = m_molecules[i].potential(m_molecules[j]);
+            #if PRINT_EACH_POTENTIAL >= 1
+                printf("potential of molecule %d with %d is %f\n", i, j, m_pair_potential);
+            #endif // PRINT_DEBUG_INFO
         }
     }
     update_sys_potential();
@@ -79,6 +98,8 @@ void Mol_Sys :: start_cooling()
     /// currently will just perform x monte carlos for each temperature from the array.
     for (m_current_index_temp = 0; m_current_index_temp < m_temp_size; m_current_index_temp++)
     {
+        /// need to add print of the system here to xyz.
+        /// first implement just a simple print
         monte_carlo();
     }
 }

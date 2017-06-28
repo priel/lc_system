@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1498510594 source:c:\users\priel\documents\codeblocks\lc_system\main.cpp
+1498680865 source:c:\users\priel\documents\codeblocks\lc_system\main.cpp
 	<iostream>
 	<mol_sys.h>
 	<molecule.h>
+	<defined.h>
 
 1494629194 source:c:\users\priel\documents\codeblocks\lc_system\src\col_mol.cpp
 	"col_mol.h"
@@ -61,4 +62,6 @@
 
 1494534643 source:c:\users\paharoni\phys_proj_lc\lc_system\src\molecule.cpp
 	"molecule.h"
+
+1498690031 c:\users\priel\documents\codeblocks\lc_system\include\defined.h
 

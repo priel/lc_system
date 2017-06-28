@@ -1,7 +1,8 @@
 #include <iostream>
 #include <mol_sys.h>
 #include <molecule.h>
-#define DEBUG 1
+#include <defined.h>
+
 using namespace std;
 
 int main(int argc, char* argv[])
