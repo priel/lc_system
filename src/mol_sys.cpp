@@ -84,7 +84,7 @@ void Mol_Sys :: init()
         {
             m_pair_potential[i][j] = m_molecules[i].potential(m_molecules[j]);
             #if PRINT_EACH_POTENTIAL >= 1
-                printf("potential of molecule %d with %d is %f\n", i, j, m_pair_potential);
+                printf("potential of molecule %d with %d is %f\n", i, j, m_pair_potential[i][j]);
             #endif // PRINT_DEBUG_INFO
         }
     }

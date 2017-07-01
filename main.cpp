@@ -61,5 +61,5 @@ int main(int argc, char* argv[])
 
     #endif // DEBUG
 }
-/// optimization suggestions:
-/// use array instead of vectors in the molecules.
+/// after a bit of investigation, better use only vectors and not arrays.
+/// should convert all arrays into vectors.

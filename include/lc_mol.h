@@ -9,7 +9,7 @@ class LC_Mol : public Molecule
     public:
         LC_Mol();
 
-        LC_Mol(std::vector<double> loc, std::vector<double> spin, double depth, double length): Molecule(loc,spin){};
+        LC_Mol(std::vector<double> loc, std::vector<double> spin): Molecule(loc,spin){};
 
         virtual ~LC_Mol();
 

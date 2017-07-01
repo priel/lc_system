@@ -3,11 +3,10 @@
 
 
 #define DEBUG 1
-#define PRINT_LOCATION 1
 #define PRINT_DEBUG_INFO 10
 #define PRINT_EACH_POTENTIAL 10
 #define PRINT_LOCATION 10
 #define PRINT_SPIN 10
-
+#define K_B 1.38066e-23
 
 #endif // DEFINED_H_INCLUDED

@@ -8,7 +8,8 @@ class Col_Mol : public Molecule
 {
     public:
 
-        Col_Mol(std::vector<double> loc, std::vector<double> spin, double depth, double length): Molecule(loc,spin){};
+        /// when we will want to test different type of the same molecules
+        Col_Mol(std::vector<double> loc, std::vector<double> spin): Molecule(loc,spin){};
 
         Col_Mol();
 

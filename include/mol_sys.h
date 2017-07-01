@@ -1,8 +1,9 @@
 #ifndef MOL_SYS_H
 #define MOL_SYS_H
 
-#include <molecule.h>
-#define k_B 1.38066e-23
+#include "molecule.h"
+#include "defined.h"
+
 
 class Mol_Sys
 {

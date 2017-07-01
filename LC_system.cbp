@@ -35,6 +35,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/col_mol.h" />
+		<Unit filename="include/defined.h" />
 		<Unit filename="include/lc_mol.h" />
 		<Unit filename="include/model.h" />
 		<Unit filename="include/mol_sys.h" />
