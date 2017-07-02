@@ -9,5 +9,7 @@ Molecule::~Molecule(){}
 
 double Molecule::potential(const Molecule & mol)
 {
+    if (typeid(mol) == type)
     return 2.0;
 }
+

@@ -25,13 +25,14 @@ Model::Model(double d_0, double l_0, double d_1, double l_1, double epsilon_0_0,
     m_epsilon_0_0 = K_B;
 
 
-    m_chi_tag_00 = (1 - pow(m_ee_div_es_0 ,( 1 / m_miu )) / (1 + pow(m_ee_div_es_0,(1/ m_miu))
-CHI_TAG_11 = (1-EE_DIV_ES_1**(1/MIU))/(1+EE_DIV_ES_1**(1/MIU))
-CHI_TAG_01 = (1-(EE_DIV_ES_1*EE_DIV_ES_0)**(1/2*MIU))/(1+(EE_DIV_ES_1*EE_DIV_ES_0)**(1/2*MIU))
+    m_chi_tag_00 = (1 - pow(m_ee_div_es_0 ,( 1 / m_miu )) / (1 + pow(m_ee_div_es_0,(1/ m_miu)) ) );
+    m_chi_tag_11 = (1 - pow(m_ee_div_es_1 ,( 1 / m_miu )) / (1 + pow(m_ee_div_es_1,(1/ m_miu)) ) );
+    m_chi_tag_01 = (1 - pow(m_ee_div_es_0 * m_ee_div_es_1, (1 / (2 * m_miu)) ) / (1 + pow(m_ee_div_es_0 * m_ee_div_es_1, 1 / (2 * m_miu)) ) );
 
-ALPHA_TAG_00 = (1/(1+EE_DIV_ES_0**(1/MIU)))**0.5
-ALPHA_TAG_11 = (1/(1+EE_DIV_ES_1**(1/MIU)))**0.5
-ALPHA_TAG_01 = (1/1+(EE_DIV_ES_1*EE_DIV_ES_0)**(1/2*MIU))**0.5
+    m_alpha_tag_00 = sqrt(1 / (1 + pow(m_ee_div_es_0, (1/m_miu)) ) );
+    m_alpha_tag_11 = sqrt(1 / (1 + pow(m_ee_div_es_1, (1/m_miu)) ) );
+    m_alpha_tag_01 = sqrt(1 / (1 + pow(m_ee_div_es_0 * m_ee_div_es_1, 1/(2 * m_miu)) ) );
+
 }
 
 Model::~Model()
