@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1498917529 source:c:\users\priel\documents\codeblocks\lc_system\main.cpp
+1499280527 source:c:\users\priel\documents\codeblocks\lc_system\main.cpp
 	<iostream>
-	<mol_sys.h>
-	<molecule.h>
-	<defined.h>
+	"mol_sys.h"
+	"molecule.h"
+	"defined.h"
 
 1494629194 source:c:\users\priel\documents\codeblocks\lc_system\src\col_mol.cpp
 	"col_mol.h"
@@ -11,8 +11,10 @@
 1494629193 c:\users\priel\documents\codeblocks\lc_system\include\col_mol.h
 	<molecule.h>
 
-1498505928 c:\users\priel\documents\codeblocks\lc_system\include\molecule.h
+1499281262 c:\users\priel\documents\codeblocks\lc_system\include\molecule.h
 	<vector>
+	"defined.h"
+	"model.h"
 
 1494629194 source:c:\users\priel\documents\codeblocks\lc_system\src\lc_mol.cpp
 	"lc_mol.h"
@@ -20,19 +22,21 @@
 1494629193 c:\users\priel\documents\codeblocks\lc_system\include\lc_mol.h
 	<molecule.h>
 
-1498917650 source:c:\users\priel\documents\codeblocks\lc_system\src\mol_sys.cpp
+1499281424 source:c:\users\priel\documents\codeblocks\lc_system\src\mol_sys.cpp
 	"mol_sys.h"
+
+1499281375 c:\users\priel\documents\codeblocks\lc_system\include\mol_sys.h
 	<time.h>
 	<cstdlib>
 	<random>
 	<math.h>
 	<stdio.h>
-	<defined.h>
+	"mol_sys.h"
+	"defined.h"
+	"molecule.h"
+	"model.h"
 
-1498510859 c:\users\priel\documents\codeblocks\lc_system\include\mol_sys.h
-	<molecule.h>
-
-1498505928 source:c:\users\priel\documents\codeblocks\lc_system\src\molecule.cpp
+1499281262 source:c:\users\priel\documents\codeblocks\lc_system\src\molecule.cpp
 	"molecule.h"
 
 1494525735 source:c:\users\paharoni\phys_proj_lc\lc_system\main.cpp
@@ -65,5 +69,12 @@
 1494534643 source:c:\users\paharoni\phys_proj_lc\lc_system\src\molecule.cpp
 	"molecule.h"
 
-1498917558 c:\users\priel\documents\codeblocks\lc_system\include\defined.h
+1499280344 c:\users\priel\documents\codeblocks\lc_system\include\defined.h
+
+1499469175 source:c:\users\priel\documents\codeblocks\lc_system\src\model.cpp
+	"model.h"
+
+1499469159 c:\users\priel\documents\codeblocks\lc_system\include\model.h
+	<math.h>
+	"defined.h"
 

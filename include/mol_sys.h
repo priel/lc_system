@@ -1,8 +1,15 @@
 #ifndef MOL_SYS_H
 #define MOL_SYS_H
 
-#include "molecule.h"
+#include <time.h>
+#include <cstdlib>
+#include <random>
+#include <math.h>
+#include <stdio.h>
+#include "mol_sys.h"
 #include "defined.h"
+#include "molecule.h"
+#include "model.h"
 
 
 class Mol_Sys
@@ -16,7 +23,7 @@ class Mol_Sys
 
         /** this is some kind of custom constructor where all the parameters are pre-defined.**/
         Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
-                double std_loc, double std_spin, double *temp_range, int temp_size, int steps);
+                double std_loc, double std_spin, double *temp_range, int temp_size, int steps, Model* model);
 
         /** the destructor will delete all the data here and all the molecules. */
         ~Mol_Sys();
@@ -50,6 +57,8 @@ class Mol_Sys
         int m_current_index_temp;
 
         int m_steps; /// number of steps to do in each temperature
+
+        Model* m_model;
 
 
 

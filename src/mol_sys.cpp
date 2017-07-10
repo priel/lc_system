@@ -1,16 +1,10 @@
 #include "mol_sys.h"
-#include <time.h>
-#include <cstdlib>
-#include <random>
-#include <math.h>
-#include <stdio.h>
-#include <defined.h>
 
 Mol_Sys::Mol_Sys(double* sys_sizes, int dimensions, Molecule *mols, int max_mol,
-                 double std_loc, double std_spin, double *temp_range, int temp_size, int steps)
+                 double std_loc, double std_spin, double *temp_range, int temp_size, int steps, Model *model)
                  :m_sys_sizes(sys_sizes), m_dimensions(dimensions), m_molecules(mols), m_molecules_size(max_mol),
                   m_gauss_std_loc(std_loc), m_gauss_std_spin(std_spin),
-                  m_temp_range(temp_range), m_temp_size(temp_size), m_steps(steps)
+                  m_temp_range(temp_range), m_temp_size(temp_size), m_steps(steps), m_model(model)
                   {
                       ///we are already getting the pointers of:
                       ///sys_sizes, mols and temp_range.
@@ -39,6 +33,7 @@ Mol_Sys::~Mol_Sys()
     #if PRINT_DEBUG_INFO >= 1
         printf("deleting mol_sys\n");
     #endif // PRINT_DEBUG_INFO
+    delete m_model;
     delete[] m_sys_sizes;
 /*    for (int i = 0; i < m_molecules_size; i++)
     {
@@ -82,7 +77,7 @@ void Mol_Sys :: init()
 
         for (int j = i+1; j < m_molecules_size; j++)
         {
-            m_pair_potential[i][j] = m_molecules[i].potential(m_molecules[j]);
+            m_pair_potential[i][j] = m_molecules[i].potential(&m_molecules[j], m_model);
             #if PRINT_EACH_POTENTIAL >= 1
                 printf("potential of molecule %d with %d is %f\n", i, j, m_pair_potential[i][j]);
             #endif // PRINT_DEBUG_INFO
@@ -205,7 +200,7 @@ void Mol_Sys :: monte_carlo()
         for ( j = 0; j < m_molecules_size; j++)
         {
             if (j == num_mol_chosen) continue;
-            potential[j] = mol_chosen.potential(m_molecules[j]);
+            potential[j] = mol_chosen.potential(&m_molecules[j], m_model);
             temp_total_pot += potential[j];
         }
         current_total_pot = get_all_pair_potential_of_index(num_mol_chosen);
@@ -217,7 +212,7 @@ void Mol_Sys :: monte_carlo()
         {
             prob = ((double) rand() / (RAND_MAX));
             dE = get_all_pair_potential_of_index(num_mol_chosen) - temp_total_pot;
-            if ( prob < exp(dE/(m_temp_range[m_current_index_temp] * k_B)))
+            if ( prob < exp(dE/(m_temp_range[m_current_index_temp] * K_B)))
             {
                 update_sys(mol_chosen, num_mol_chosen, potential, temp_total_pot - current_total_pot);
             }

@@ -1,9 +1,9 @@
 #include "model.h"
-#include "math.h"
-#include "defined.h"
+
+
 
 Model::Model(double d_0, double l_0, double d_1, double l_1, double epsilon_0_0, double epsilon_0_1,
-               double miu, double ni, double ee_div_es_0, double ee_div_es_1 )
+               double miu, double ni, double ee_div_es_0, double ee_div_es_1)
                :m_d_0(d_0), m_l_0(l_0), m_d_1(d_1), m_l_1(l_1), m_epsilon_0_0(epsilon_0_0), m_epsilon_0_1(epsilon_0_1),
                m_miu(miu), m_ni(ni), m_ee_div_es_0(ee_div_es_0), m_ee_div_es_1 (ee_div_es_1)
 {

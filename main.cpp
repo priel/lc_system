@@ -1,7 +1,7 @@
 #include <iostream>
-#include <mol_sys.h>
-#include <molecule.h>
-#include <defined.h>
+#include "mol_sys.h"
+#include "molecule.h"
+#include "defined.h"
 
 using namespace std;
 
@@ -53,8 +53,8 @@ int main(int argc, char* argv[])
                 mols[3*i + j].m_spin=spin;
             }
         }
-
-        Mol_Sys * lc_system = new Mol_Sys(sys_size,dimensions,mols,max_mol,std_loc,std_spin,temp_range,temp_size,steps);
+        Model * model = new Model(0.6, 1.8, 4.5, 4.5001, K_B, K_B ,1.0, 3.0, 1.0, 1.0);
+        Mol_Sys * lc_system = new Mol_Sys(sys_size, dimensions, mols, max_mol, std_loc, std_spin, temp_range, temp_size, steps, model);
         lc_system->init();
         lc_system->start_cooling();
         delete lc_system;
