@@ -9,7 +9,7 @@ Model::Model(double d_0, double l_0, double d_1, double l_1, double epsilon_0_0,
 {
     m_sigma_00 = m_d_0;
     m_sigma_11 = m_d_1;
-    m_sigma_01 = sqrt(pow(m_d_0, 2) + pow(m_d_1, 2) ) / 2;
+    m_sigma_01 = sqrt(pow(m_d_0, 2) + pow(m_d_1, 2) ) / 2.0;
 
     m_chi_00 = (pow(m_l_0/m_d_0, 2) - 1) / (pow(m_l_0/m_d_0, 2) + 1);
     m_chi_11 = (pow(m_l_1/m_d_1, 2) - 1) / (pow(m_l_1/m_d_1, 2) + 1);

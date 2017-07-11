@@ -184,6 +184,8 @@ void Mol_Sys :: monte_carlo()
         for (j = 0; j < mol_chosen.m_location.size(); j++)
         {
             ///it's actually multivariate normal distribution where E=loc, std=std given, and no correlation between the axis.
+
+            /// TODO: check we are still in the system limit
             mol_chosen.m_location[j] += loc_dist(loc_gen);
         }
 
@@ -191,6 +193,7 @@ void Mol_Sys :: monte_carlo()
         {
             ///it's actually multivariate normal distribution where E=loc, std=std given, and no correlation between the axis.
             mol_chosen.m_spin[j] += spin_dist(spin_gen);
+            /// TOOD: normalize the spin.
         }
 
         /// we now have the location vector and the spin vector suggested, now we have to calculate dE for them

@@ -9,7 +9,7 @@
 #define SYSTEM_SIZE {3,3}
 
 #define NUMBER_OF_COLLOIDE_MOLS 2
-/// colloid molecules by index
+/// colloid molecules
 #define COLLOIDE_MOLS {\
     {0,0},\
     {1,1} }
