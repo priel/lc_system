@@ -7,6 +7,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+
     #if DEBUG != 1
         if (argc < 2) {
             // Tell the user how to run the program
